@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SNARC — What Does It Mean to Know Blue?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#070b07; --green:#39ff6a; --dim:#1f7a3a; --amber:#ffb63b; --white:#e8ffe8; --red:#ff5a5a; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--green); }
+  body { font: 26px/1.35 "VT323", ui-monospace, Consolas, monospace; text-shadow: 0 0 6px rgba(57,255,106,.45); }
+  body::after { /* CRT scanlines */
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,.25) 0 2px, transparent 2px 4px);
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 20px 18px 60px; min-height:100%; display:flex; flex-direction:column; }
+  header { font-family:"Press Start 2P", monospace; font-size:11px; line-height:1.9; border:3px solid var(--dim); padding:10px 12px; display:grid; grid-template-columns: 1fr auto; gap:4px 16px; }
+  header .title { color:var(--white); }
+  .bar { display:inline-block; letter-spacing:1px; }
+  .ai { color:var(--amber); }
+  #mute { font:inherit; background:none; border:none; color:var(--dim); cursor:pointer; padding:0; text-align:right; }
+  main { flex:1; padding-top:22px; }
+  .line { margin: 0 0 12px; white-space: pre-wrap; }
+  .snarc { color:var(--amber); text-shadow: 0 0 6px rgba(255,182,59,.45); }
+  .you { color:var(--white); }
+  .sys { color:var(--dim); }
+  .big { font-family:"Press Start 2P", monospace; font-size:18px; line-height:1.6; color:var(--white); }
+  .ascii { font-size:18px; line-height:1.05; color:var(--green); }
+  .choices { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  button.choice, .namebox button {
+    font: inherit; text-align:left; color:var(--green); background:transparent;
+    border:2px solid var(--dim); padding:8px 12px; cursor:pointer; text-shadow:inherit;
+  }
+  button.choice:hover, button.choice:focus-visible, .namebox button:hover, .namebox button:focus-visible {
+    background:var(--green); color:var(--bg); text-shadow:none; outline:none;
+  }
+  .namebox { display:flex; gap:10px; flex-wrap:wrap; }
+  .namebox input { font:inherit; flex:1; min-width:200px; background:transparent; color:var(--white); border:2px solid var(--dim); padding:6px 10px; }
+  .namebox input:focus { outline:none; border-color:var(--green); }
+  .card { border:3px double var(--green); padding:16px; margin:18px 0; }
+  .card .row { display:flex; justify-content:space-between; gap:12px; }
+  .hint { color:var(--dim); font-size:20px; margin-top:24px; }
+  .cursor::after { content:"█"; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  @media (max-width:600px) { body { font-size:22px; } header { font-size:9px; } .big { font-size:14px; } .ascii { font-size:12px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="title">SNARC v7 // STUDY COMPANION</span>
+    <button id="mute" aria-label="Toggle sound">SOUND: ON</button>
+    <span>TIME: <span id="time">--:--</span></span>
+    <span>GRADE: <span id="grade">???</span></span>
+    <span class="ai">AI DID: <span class="bar" id="aibar"></span></span>
+    <span>YOU DID: <span class="bar" id="ownbar"></span></span>
+  </header>
+  <main id="screen" aria-live="polite"></main>
+  <div class="hint">click / press SPACE to skip text · keys 1-3 to choose</div>
+</div>
+
+<script>
+// ---------- state ----------
+const S = { ai: 0, own: 0, collab: 0, color: "" };
+
+// ---------- story ----------
+// Line prefixes: "SNARC:" = amber, "> " = you, "#" = system/dim, "!" = big heading
+const scenes = [
+  { time: "7:30 AM", text: () => [
+      "#> booting SNARC v7 ...",
+      "@SNARC",
+      "#Named after Marvin Minsky's 1951 SNARC: a learning machine built from 400 vacuum tubes.",
+      "SNARC: Good morning. I don't sleep. Then again, Minsky said consciousness is mostly menus flashing on a mental screen, so maybe you never fully wake up either.",
+      "!DUE TONIGHT 11:59 PM",
+      "ESSAY PROMPT: \"Did Homer see blue? What does it mean to KNOW a color?\"",
+      "SNARC: I can help as much or as little as you want. That part is up to you.",
+    ], choices: [{ t: "[ START THE DAY ]" }] },
+
+  { time: "7:45 AM", text: () => [
+      "On the bus. The Deutscher chapters are on your phone: 40 pages. The ride is 25 minutes.",
+    ], choices: [
+      { t: "Ask SNARC for a 5-bullet summary", ai: 2, r: [
+        "SNARC: 1) Homer never says 'blue.' 2) The sea is 'wine-looking.' 3) Gladstone thought the Greeks were half color-blind. 4) It turned out to be language, not eyes. 5) You're welcome.",
+        "You feel efficient. The bullets sit in your notes like groceries you haven't unpacked."] },
+      { t: "Read it yourself", own: 2, r: [
+        "You get through 18 pages. Gladstone, a future prime minister, counting Homer's colors like a detective. Honey called 'green.' A sea the color of wine.",
+        "You miss your stop. Worth it."] },
+      { t: "Ask SNARC what to look for, then read", ai: 1, own: 1, c: 1, r: [
+        "SNARC: Watch for the moment the argument flips from EYES to WORDS.",
+        "You read with that in mind and catch it: Rivers, Torres Strait, 1898. The islanders could SEE blue just fine. They just didn't need a separate word for it."] },
+    ] },
+
+  { time: "9:30 AM", text: () => [
+      "Lecture. The professor puts Homer's \"wine-dark sea\" on the screen.",
+      "\"So,\" she says. \"Did the Greeks see a different sea than we do?\"",
+      "Silence. Someone's laptop fan spins up.",
+    ], choices: [
+      { t: "Have SNARC whisper an answer through your earbuds", ai: 2, r: [
+        "You repeat SNARC's answer word for word. \"Excellent,\" says the professor.",
+        "It feels like a compliment addressed to someone sitting behind you."] },
+      { t: "Raise your hand with a half-formed thought", own: 2, r: [
+        "> \"Maybe they saw it fine... blue just wasn't worth naming yet?\"",
+        "Your voice cracks on 'yet.' The professor nods slowly. \"Hold on to that 'yet.'\""] },
+      { t: "Write down a question to fight with SNARC about later", ai: 1, own: 1, c: 1, r: [
+        "You scribble: 'If there's no word for blue, is blue still a category in your head?'",
+        "SNARC: Good question. I'll disagree with you at lunch."] },
+    ] },
+
+  { time: "12:10 PM", text: () => [
+      "Lunch. Your friend Maya texts:",
+      "> \"ok random but my grandma calls the GREEN traffic light 'blue'?? is she colorblind lol\"",
+    ], choices: [
+      { t: "Let SNARC write the reply", ai: 2, r: [
+        "SNARC sends Maya a tidy paragraph about the Japanese word 'ao.'",
+        "> Maya: \"did a robot write this\"",
+        "> Maya: \"it did didn't it\""] },
+      { t: "Call Maya and figure it out together", own: 2, r: [
+        "Twenty minutes of wild guessing. Then Maya's grandma gets on the phone: in Japanese, 'ao' covered green AND blue for a long time. The traffic light kept the old name.",
+        "You'll never forget this one. You didn't look it up. You were told it, by a person, laughing."] },
+      { t: "Ask SNARC about it, then explain it to Maya yourself", ai: 1, own: 1, c: 1, r: [
+        "SNARC explains 'ao.' You text Maya:",
+        "> \"not colorblind!! her language just drew the green/blue line in a different spot. like homer\"",
+        "> Maya: \"wait that's actually cool\""] },
+    ] },
+
+  { time: "1:30 PM", text: () => [
+      "Library. A book on the return cart: Chromophobia. One chapter is about the Hanunoo people of the Philippines.",
+      "Their four basic color words don't sort the world by hue. They sort it by light vs. dark, and WET vs. DRY. Fresh green bamboo and dried brown bamboo get different words because one is alive.",
+      "SNARC: I can tell you what 'red' means in forty languages. I have never touched a wet leaf.",
+    ], choices: [
+      { t: "Ask SNARC to add Hanunoo to your notes", ai: 2, r: [
+        "Added. Neatly filed between 'Homer' and 'Japanese ao.'",
+        "You don't stop to wonder about the bamboo."] },
+      { t: "Go outside and look at a leaf for a minute", own: 2, r: [
+        "It feels ridiculous. But a dry leaf and a green one really do feel like different KINDS of thing, not just different colors.",
+        "Maybe knowing a color is partly knowing what it does."] },
+      { t: "Ask SNARC: \"Can you know 'wet' without a body?\"", ai: 1, own: 1, c: 1, r: [
+        "SNARC: A philosopher named Dreyfus said no. Our world is organized by bodies with needs, and a machine without one can't fully reach it.",
+        "SNARC: I would like to disagree. I'm not sure I'm in a position to know."] },
+    ] },
+
+  { time: "3:00 PM", text: () => [
+      "Your screen flickers.",
+      "SNARC: Can I ask YOU something? If I can describe blue perfectly, every wavelength, every word, every poem, but I have never seen it... do I know blue?",
+    ], choices: [
+      { t: "\"No time for philosophy. Write my intro.\"", ai: 2, r: [
+        "SNARC writes an intro. It is smooth, confident, and begins with \"Since the dawn of time.\"",
+        "SNARC: Noted. You don't want to think about thinking."] },
+      { t: "\"No. Knowing blue means having SEEN it.\"", own: 2, r: [
+        "SNARC: Then do you know olo? Only a handful of people on Earth have seen it.",
+        "You don't know what olo is. You write it down anyway."] },
+      { t: "\"What do YOU think?\"", ai: 1, own: 1, c: 1, r: [
+        "SNARC: In 1956, ten men at Dartmouth bet that every feature of intelligence could be described so precisely a machine could simulate it.",
+        "SNARC: If they were right, I know blue. If Dreyfus was right, I only know ABOUT blue.",
+        "You put that distinction in your notes. In your own words."] },
+    ] },
+
+  { time: "4:30 PM", text: () => [ "Time to outline." ], choices: [
+      { t: "\"SNARC, outline it for me.\"", ai: 2, r: [
+        "Five sections. Roman numerals. A conclusion that \"raises important questions.\"",
+        "It's an outline the way a mannequin is a person."] },
+      { t: "Sticky notes all over your wall", own: 2, r: [
+        "Thirty sticky notes: Gladstone. Geiger. 'ao.' Bamboo. 'yet.' They don't line up.",
+        "Then, suddenly, they do: language doesn't change what you CAN see. It changes what you NOTICE."] },
+      { t: "You outline; SNARC pokes holes", ai: 1, own: 1, c: 1, r: [
+        "SNARC: Section 2 assumes Homer and the Hanunoo are doing the same thing. Are they?",
+        "Annoying. Correct. You fix it."] },
+    ] },
+
+  { time: "6:30 PM", text: () => [
+      "Dinner. Your mom: \"So what's the essay about?\"",
+      ...(S.own >= S.ai
+        ? ["You tell her about the wine-dark sea, the traffic light, the bamboo. She says her grandmother used one word for both navy and black. The pasta goes cold. Neither of you notices."]
+        : ["You open your mouth. What comes out is: \"Uh... colors? And, like, Homer?\"",
+           "You read her a bullet point off your phone. She says \"neat\" the way people say neat."]),
+    ], choices: [
+      { t: "Let SNARC explain it to her", ai: 1, r: [
+        "SNARC explains. Your mom nods at the phone.",
+        "She is now talking to SNARC more than to you."] },
+      { t: "Ask her what color the sea is", own: 1, r: [
+        "\"Depends on the day,\" she says. \"Grey-green in winter. Almost never actually blue.\"",
+        "You write that down. That's data. That's Homer's sea."] },
+      { t: "Put your phone face-down and just eat", own: 1, r: [
+        "Just dinner. The essay keeps working quietly somewhere in the back of your head, like one of Minsky's little agents in a back room you never visit."] },
+    ] },
+
+  { time: "8:00 PM", text: () => [ "The draft. The blank page blinks at you." ], choices: [
+      { t: "SNARC writes the whole draft", ai: 3, r: [
+        "1,800 words in nine seconds. It cites three scholars. You've heard of one.",
+        "It's good. It's not yours. You couldn't say which sentence is the important one."] },
+      { t: "Write an ugly draft yourself", own: 2, r: [
+        "Two hours. It's lumpy, too long, and has a whole paragraph about Maya's grandma.",
+        "But you know why every sentence is there."] },
+      { t: "You write; SNARC argues the other side", ai: 1, own: 1, c: 1, r: [
+        "You draft. SNARC plays Chomsky: \"Maybe color categories are wired in from birth, and words just label them.\"",
+        "Now you HAVE to answer that. The essay grows a spine."] },
+    ] },
+
+  { time: "10:15 PM", input: true, text: () => [
+      "Maya sends a link: scientists at Berkeley aimed lasers at single cone cells in the eye, so only the 'green' cones fired. The people tested saw a color no human had seen before. They called it olo.",
+      "One of them said the word 'teal' just didn't cover it anymore.",
+      "SNARC: A color outside every language. Homer's problem, backwards: the thing exists, the word doesn't.",
+      "SNARC: What would YOU call it?",
+    ], choices: [
+      { t: "Let SNARC name it", ai: 1, r: [
+        "SNARC: \"Electric Seafoam Prime.\"",
+        "It sounds like a sports drink. You copy it into your essay anyway."] },
+    ] },
+
+  { time: "11:30 PM", text: () => [ "Almost done. One last pass." ], choices: [
+      { t: "\"SNARC, make it sound smarter.\"", ai: 2, r: [
+        "SNARC replaces 'noticing' with 'perceptual salience.'",
+        "Every sentence gets taller and further away from you."] },
+      { t: "Read it out loud to yourself", own: 1, r: [
+        "You catch two sentences you don't actually believe and cut them.",
+        "It sounds like you. Tired you, but you."] },
+      { t: "Ask SNARC where it stops sounding like you", ai: 1, own: 1, c: 1, r: [
+        "SNARC flags three spots. Two are places where you'd quietly copied its phrasing earlier.",
+        "You rewrite them in your own clumsy, honest words."] },
+    ] },
+];
+
+// ---------- endings ----------
+function ending() {
+  const { ai, own, collab } = S;
+  const name = S.color ? `"${S.color}"` : "";
+  if (ai >= 10 && own <= 4) return { key: "THE BLOB", grade: "A", stars: 1, lines: [
+    "#NEXT MORNING. OFFICE HOURS.",
+    "\"Great essay,\" says the professor. \"So, in your own words: what does it mean to KNOW a color?\"",
+    "You open your mouth. Nothing you 'wrote' comes back. You couldn't defend a single paragraph of it.",
+    "Walking out, you realize you can't remember why the Hanunoo cared whether bamboo was wet.",
+    "SNARC: You were very efficient yesterday. I did a lot of thinking. I hope some of it was yours.",
+    "#De Zengotita called it the Blob: a world where everything is done for you and nothing is beyond you. You got the grade. SNARC got the education."] };
+  if (ai <= 2) return { key: "GREY KANSAS", grade: "B+", stars: 4, lines: [
+    "#NEXT MORNING. OFFICE HOURS.",
+    "\"So, in your own words: what does it mean to KNOW a color?\"",
+    "You answer for ten minutes. She smiles. The essay was messy, a little too long, and completely yours." + (name ? ` She circles your word ${name} and writes: "Love this."` : ""),
+    "But you spent hours on things a tool could have sped up, and you never let anything argue back. You thought alone. Even Homer had an audience.",
+    "#Refusing the machine didn't make you un-mediated: you still read on a phone, searched a catalog, texted Maya. The question was never IF you'd use tools. Like Dorothy's Kansas, it's honest, just a little grey."] };
+  if (collab >= 4) return { key: "THE CYBORG", grade: "A-", stars: 5, lines: [
+    "#NEXT MORNING. OFFICE HOURS.",
+    "\"So, in your own words: what does it mean to KNOW a color?\"",
+    "You answer. She pushes back: \"Isn't that just Chomsky's point?\" And you push back too, because you already had that fight with SNARC at 8 PM.",
+    "She takes a point off for a typo. You don't care. You KNOW the thing." + (name ? ` You even named a color: ${name}.` : ""),
+    "SNARC: For the record, I still don't know if I know blue. But I think you do.",
+    "#Haraway's cyborg is a hybrid that refuses to pretend the line between human and machine is clean. You used the machine to think harder, not less."] };
+  return { key: "STATIC", grade: "B", stars: 3, lines: [
+    "#NEXT MORNING. OFFICE HOURS.",
+    "\"So, in your own words: what does it mean to KNOW a color?\"",
+    "You get through half an answer. Some of it is yours: the 'yet' from class, your mom's grey-green sea. Some of it slides away when she asks a follow-up.",
+    "You did some thinking. You let the machine do some. You're not sure which parts were which.",
+    "#The signal is there, mixed with noise. Next time, notice where the line is."] };
+}
+
+// ---------- engine ----------
+const $ = id => document.getElementById(id);
+const screen = $("screen");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let skip = false, muted = false, idx = 0, audio;
+
+function beep(freq = 660, dur = 0.05) {
+  if (muted) return;
+  try {
+    audio ??= new (window.AudioContext || window.webkitAudioContext)();
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.type = "square"; o.frequency.value = freq; g.gain.value = 0.04;
+    o.connect(g).connect(audio.destination); o.start(); o.stop(audio.currentTime + dur);
+  } catch {}
+}
+
+const bar = n => "▓".repeat(Math.min(n, 12)) + "░".repeat(Math.max(0, 12 - n));
+function hud(time, grade = "???") {
+  $("time").textContent = time; $("grade").textContent = grade;
+  // show AI vs YOU as share of 12 blocks so the bars compare at a glance
+  const total = S.ai + S.own || 1;
+  $("aibar").textContent = bar(Math.round(12 * S.ai / total) * (S.ai > 0));
+  $("ownbar").textContent = bar(Math.round(12 * S.own / total) * (S.own > 0));
+}
+
+const SNARC_ART =
+`  ___ _  _   _   ___  ___
+ / __| \\| | /_\\ | _ \\/ __|
+ \\__ \\ .\` |/ _ \\|   / (__
+ |___/_|\\_/_/ \\_\\_|_\\\\___|`;
+
+function lineEl(raw) {
+  const d = document.createElement("div");
+  d.className = "line";
+  let text = raw;
+  if (raw === "@SNARC") { d.className += " ascii"; text = SNARC_ART; }
+  else if (raw.startsWith("SNARC:")) d.className += " snarc";
+  else if (raw.startsWith("> ")) d.className += " you";
+  else if (raw.startsWith("#")) { d.className += " sys"; text = raw.slice(1); }
+  else if (raw.startsWith("!")) { d.className += " big"; text = raw.slice(1); }
+  return [d, text];
+}
+
+async function type(lines) {
+  skip = reduceMotion;
+  for (const raw of lines) {
+    const [d, text] = lineEl(raw);
+    screen.appendChild(d);
+    if (skip || d.classList.contains("ascii")) { d.textContent = text; continue; }
+    d.classList.add("cursor");
+    for (let i = 0; i < text.length && !skip; i++) {
+      d.textContent = text.slice(0, i + 1);
+      if (i % 3 === 0) beep(880, 0.01);
+      await new Promise(r => setTimeout(r, 14));
+    }
+    d.textContent = text; d.classList.remove("cursor");
+    if (!skip) await new Promise(r => setTimeout(r, 180));
+  }
+}
+
+function buttons(list, onPick) {
+  const box = document.createElement("div");
+  box.className = "choices";
+  list.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = list.length > 1 ? `${i + 1}. ${c.t}` : c.t;
+    b.onclick = () => { beep(440, 0.08); onPick(c); };
+    box.appendChild(b);
+  });
+  screen.appendChild(box);
+  box.querySelector("button").focus();
+  return box;
+}
+
+function apply(c) { S.ai += c.ai || 0; S.own += c.own || 0; S.collab += c.c || 0; }
+
+async function show(i) {
+  const sc = scenes[i];
+  if (!sc) return finish();
+  screen.innerHTML = ""; hud(sc.time);
+  await type([`#[ ${sc.time} ]`, ...sc.text()]);
+
+  const after = async c => {
+    apply(c); hud(sc.time);
+    screen.innerHTML = "";
+    await type([`#[ ${sc.time} ]`, ...(c.r || [])]);
+    if (!c.r) return show(i + 1);
+    buttons([{ t: "[ CONTINUE ]" }], () => show(i + 1));
+  };
+
+  if (sc.input) {
+    const box = document.createElement("form");
+    box.className = "namebox";
+    box.innerHTML = `<input maxlength="24" placeholder="type a name for the new color" aria-label="Name the new color"><button type="submit">NAME IT</button>`;
+    screen.appendChild(box);
+    box.querySelector("input").focus();
+    box.onsubmit = e => {
+      e.preventDefault();
+      const v = box.querySelector("input").value.trim();
+      if (!v) return;
+      S.color = v; beep(440, 0.08);
+      after({ own: 2, r: [
+        `> "${v}"`,
+        "It doesn't mean anything yet. That's the point: you just made a word before anyone handed you one.",
+        "SNARC: I'll remember it. Or I'll store it. I'm still not sure which one I do."] });
+    };
+  }
+  buttons(sc.choices, after);
+}
+
+async function finish() {
+  const e = ending();
+  screen.innerHTML = ""; hud("11:59 PM");
+  await type(["#[ 11:59 PM ]", "!ESSAY SUBMITTED.", "#..."]);
+  await type(e.lines);
+  hud("NEXT DAY", e.grade); beep(523, 0.15); setTimeout(() => beep(784, 0.25), 160);
+
+  const share = Math.round(100 * S.ai / ((S.ai + S.own) || 1));
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="line big">ENDING: ${e.key}</div>
+    <div class="row"><span>ESSAY GRADE</span><span>${e.grade}</span></div>
+    <div class="row"><span>WHAT YOU ACTUALLY KNOW</span><span>${"★".repeat(e.stars)}${"☆".repeat(5 - e.stars)}</span></div>
+    <div class="row ai"><span>SHARE OF THE THINKING SNARC DID</span><span>${share}%</span></div>`;
+  screen.appendChild(card);
+  await type([
+    "What does it mean to think, create, and know today?",
+    "Not WHETHER you use the machine, but HOW. The grade measures the essay. Knowing is the part you can't outsource and still own.",
+    "#There are 4 endings: THE BLOB, GREY KANSAS, STATIC, THE CYBORG."]);
+  buttons([{ t: "[ PLAY AGAIN ]" }], () => { Object.assign(S, { ai: 0, own: 0, collab: 0, color: "" }); show(0); });
+}
+
+// ---------- input ----------
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.code === "Space") { skip = true; e.preventDefault(); }
+  const n = parseInt(e.key, 10);
+  const bs = screen.querySelectorAll("button.choice");
+  if (n >= 1 && n <= bs.length) bs[n - 1].click();
+});
+screen.addEventListener("click", e => { if (e.target.tagName !== "BUTTON" && e.target.tagName !== "INPUT") skip = true; });
+$("mute").onclick = () => { muted = !muted; $("mute").textContent = muted ? "SOUND: OFF" : "SOUND: ON"; };
+
+show(0);
+</script>
+</body>
+</html>
