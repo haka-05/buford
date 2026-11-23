@@ -246,7 +246,7 @@ function ending() {
     "He takes a point off for a typo. You don't care. You know the thing." + (name ? ` You even named a color: ${name}.` : ""),
     "BUFORD: For the record, I still don't know if I know blue. But I think you do.",
     "#Haraway's cyborg is half human, half machine, and refuses to pretend the line between them is clean. You used the machine to think harder, not less."] };
-  return { key: "IDK HOW YOU GOT THIS ENDING TBH", grade: "B", stars: 3, lines: [
+  return { key: "YOU'RE JUST A REGULAR DUDE", grade: "B", stars: 3, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
     "\"So, in your own words: what does it mean to KNOW a color?\"",
     "You get through half an answer. Some of it is yours: the 'yet' from class, your mom's green sea. Some of it slides away when Mr. Slick asks a follow-up.",
@@ -384,7 +384,7 @@ async function finish() {
   await type([
     "What does it mean to think, create, and know today?",
     "Not WHETHER you use the machine, but HOW. The grade measures the essay. Knowing is the part you have to deal with.",
-    "#There are 4 endings: AI SLOP, GREY KANSAS, IDK HOW YOU GOT THIS ENDING TBH, THE CYBORG."]);
+    "#There are 4 endings: AI SLOP, GREY KANSAS, YOU'RE JUST A REGULAR DUDE, THE CYBORG."]);
   buttons([{ t: "[ PLAY AGAIN ]" }], () => { Object.assign(S, { ai: 0, own: 0, collab: 0, color: "" }); show(0); });
 }
 

@@ -274,7 +274,7 @@ You rewrite them in your own words.
 
 ## Endings
 
-*Which ending you get (checked in this order): AI SLOP if AI total is 10+ and your total is 4 or less. GREY KANSAS if AI total is 2 or less. THE CYBORG (half human, half robot) if you picked a "together" option 4+ times. Otherwise IDK HOW YOU GOT THIS ENDING TBH.*
+*Which ending you get (checked in this order): AI SLOP if AI total is 10+ and your total is 4 or less. GREY KANSAS if AI total is 2 or less. THE CYBORG (half human, half robot) if you picked a "together" option 4+ times. Otherwise, you're just a regular dude.*
 
 ### AI SLOP: Grade A, What you know ★☆☆☆☆
 
@@ -316,7 +316,7 @@ BUFORD: For the record, I still don't know if I know blue. But I think you do.
 
 *Haraway's cyborg is half human, half machine, and refuses to pretend the line between them is clean. You used the machine to think harder, not less.*
 
-### IDK HOW YOU GOT THIS ENDING TBH: Grade B, What you know ★★★☆☆
+### YOU'RE JUST A REGULAR DUDE: Grade B, What you know ★★★☆☆
 
 *NEXT MORNING. OFFICE HOURS.*
 
@@ -334,4 +334,4 @@ What does it mean to think, create, and know today?
 
 Not WHETHER you use the machine, but HOW. The grade measures the essay. Knowing is the part you have to deal with.
 
-*There are 4 endings: AI SLOP, GREY KANSAS, IDK HOW YOU GOT THIS ENDING TBH, THE CYBORG.*
+*There are 4 endings: AI SLOP, GREY KANSAS, YOU'RE JUST A REGULAR DUDE, THE CYBORG.*
