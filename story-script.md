@@ -80,7 +80,7 @@ BUFORD sends Jordan a tidy paragraph about the Japanese word 'ao.'
 
 > Jordan: "Gang this AI. Come on"
 
-> Jordan: "it most def did"
+> Jordan: "it most def wrote this"
 
 **Choice 2: Call Jordan and figure it out together** _(You +2)_
 
