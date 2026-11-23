@@ -109,20 +109,20 @@ const scenes = [
     ] },
 
   { time: "12:10 PM", text: () => [
-      "Lunch. Your friend Maya texts:",
+      "Lunch. Your friend Jordan texts:",
       "> \"ok random but my grandma calls the GREEN traffic light 'blue'?? is she colorblind lol\"",
     ], choices: [
       { t: "Let SNARC write the reply", ai: 2, r: [
-        "SNARC sends Maya a tidy paragraph about the Japanese word 'ao.'",
-        "> Maya: \"did a robot write this\"",
-        "> Maya: \"it did didn't it\""] },
-      { t: "Call Maya and figure it out together", own: 2, r: [
-        "Twenty minutes of wild guessing. Then Maya's grandma gets on the phone: in Japanese, 'ao' covered green AND blue for a long time. The traffic light kept the old name.",
+        "SNARC sends Jordan a tidy paragraph about the Japanese word 'ao.'",
+        "> Jordan: \"did a robot write this\"",
+        "> Jordan: \"it did didn't it\""] },
+      { t: "Call Jordan and figure it out together", own: 2, r: [
+        "Twenty minutes of wild guessing. Then Jordan's grandma gets on the phone: in Japanese, 'ao' covered green AND blue for a long time. The traffic light kept the old name.",
         "You'll never forget this one. You didn't look it up. You were told it, by a person, laughing."] },
-      { t: "Ask SNARC about it, then explain it to Maya yourself", ai: 1, own: 1, c: 1, r: [
-        "SNARC explains 'ao.' You text Maya:",
+      { t: "Ask SNARC about it, then explain it to Jordan yourself", ai: 1, own: 1, c: 1, r: [
+        "SNARC explains 'ao.' You text Jordan:",
         "> \"not colorblind!! her language just drew the green/blue line in a different spot. like homer\"",
-        "> Maya: \"wait that's actually cool\""] },
+        "> Jordan: \"wait that's actually cool\""] },
     ] },
 
   { time: "1:30 PM", text: () => [
@@ -191,7 +191,7 @@ const scenes = [
         "1,800 words in nine seconds. It cites three scholars. You've heard of one.",
         "It's good. It's not yours. You couldn't say which sentence is the important one."] },
       { t: "Write an ugly draft yourself", own: 2, r: [
-        "Two hours. It's lumpy, too long, and has a whole paragraph about Maya's grandma.",
+        "Two hours. It's lumpy, too long, and has a whole paragraph about Jordan's grandma.",
         "But you know why every sentence is there."] },
       { t: "You write; SNARC argues the other side", ai: 1, own: 1, c: 1, r: [
         "You draft. SNARC plays Chomsky: \"Maybe color categories are wired in from birth, and words just label them.\"",
@@ -199,7 +199,7 @@ const scenes = [
     ] },
 
   { time: "10:15 PM", input: true, text: () => [
-      "Maya sends a link: scientists at Berkeley aimed lasers at single cone cells in the eye, so only the 'green' cones fired. The people tested saw a color no human had seen before. They called it olo.",
+      "Jordan sends a link: scientists at Berkeley aimed lasers at single cone cells in the eye, so only the 'green' cones fired. The people tested saw a color no human had seen before. They called it olo.",
       "One of them said the word 'teal' just didn't cover it anymore.",
       "SNARC: A color outside every language. Homer's problem, backwards: the thing exists, the word doesn't.",
       "SNARC: What would YOU call it?",
@@ -238,7 +238,7 @@ function ending() {
     "\"So, in your own words: what does it mean to KNOW a color?\"",
     "You answer for ten minutes. She smiles. The essay was messy, a little too long, and completely yours." + (name ? ` She circles your word ${name} and writes: "Love this."` : ""),
     "But you spent hours on things a tool could have sped up, and you never let anything argue back. You thought alone. Even Homer had an audience.",
-    "#Refusing the machine didn't make you un-mediated: you still read on a phone, searched a catalog, texted Maya. The question was never IF you'd use tools. Like Dorothy's Kansas, it's honest, just a little grey."] };
+    "#Refusing the machine didn't make you un-mediated: you still read on a phone, searched a catalog, texted Jordan. The question was never IF you'd use tools. Like Dorothy's Kansas, it's honest, just a little grey."] };
   if (collab >= 4) return { key: "THE CYBORG", grade: "A-", stars: 5, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
     "\"So, in your own words: what does it mean to KNOW a color?\"",
