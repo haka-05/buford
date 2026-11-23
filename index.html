@@ -79,50 +79,50 @@ const scenes = [
     ], choices: [{ t: "[ START THE DAY ]" }] },
 
   { time: "7:45 AM", text: () => [
-      "On the bus. The Deutscher chapters are on your phone: 40 pages. The ride is 25 minutes.",
+      "On the bus. The Deutscher chapters are on your phone: 40 pages. The ride is 28 minutes.",
     ], choices: [
       { t: "Ask BUFORD for a 5-bullet summary", ai: 2, r: [
         "BUFORD: 1) Homer never says 'blue.' 2) The sea is 'wine-looking.' 3) Gladstone thought the Greeks were half color-blind. 4) It turned out to be language, not eyes. 5) You're welcome.",
-        "You feel efficient. The bullets sit in your notes like groceries you haven't unpacked."] },
+        "You feel efficient. The notes sit on your phone; you hardly even read them."] },
       { t: "Read it yourself", own: 2, r: [
         "You get through 18 pages. Gladstone, a future prime minister, counting Homer's colors like a detective. Honey called 'green.' A sea the color of wine.",
-        "You miss your stop. Worth it."] },
+        "You miss your stop. Are we deadahh??"] },
       { t: "Ask BUFORD what to look for, then read", ai: 1, own: 1, c: 1, r: [
-        "BUFORD: Watch for the moment the argument flips from EYES to WORDS.",
-        "You read with that in mind and catch it: Rivers, Torres Strait, 1898. The islanders could SEE blue just fine. They just didn't need a separate word for it."] },
+        "BUFORD: Watch for the moment the argument changes.",
+        "You read that and see: Rivers, Torres Strait, 1898. The islanders could SEE blue just fine. They just didn't need a separate word for it."] },
     ] },
 
   { time: "9:30 AM", text: () => [
-      "Lecture. The professor puts Homer's \"wine-dark sea\" on the screen.",
-      "\"So,\" she says. \"Did the Greeks see a different sea than we do?\"",
-      "Silence. Someone's laptop fan spins up.",
+      "Lecture. Mr. Slick puts Homer's \"wine-dark sea\" on the screen.",
+      "\"So,\" he says. \"Did the Greeks see a different sea than we do?\"",
+      "Silence.",
     ], choices: [
-      { t: "Have BUFORD whisper an answer through your earbuds", ai: 2, r: [
-        "You repeat BUFORD's answer word for word. \"Excellent,\" says the professor.",
-        "It feels like a compliment addressed to someone sitting behind you."] },
+      { t: "Have BUFORD whisper an answer through your AirPods", ai: 2, r: [
+        "You repeat BUFORD's answer word for word. \"Excellent,\" says Mr. Slick.",
+        "It feels like a compliment for Chase Nelson, who is sitting behind you."] },
       { t: "Raise your hand with a half-formed thought", own: 2, r: [
-        "> \"Maybe they saw it fine... blue just wasn't worth naming yet?\"",
-        "Your voice cracks on 'yet.' The professor nods slowly. \"Hold on to that 'yet.'\""] },
+        "> \"Maybe they saw it just fine... blue just didn't seem worth naming... yet?\"",
+        "Mr. Slick nods slowly. \"Hold on to that 'yet.'\""] },
       { t: "Write down a question to fight with BUFORD about later", ai: 1, own: 1, c: 1, r: [
-        "You scribble: 'If there's no word for blue, is blue still a category in your head?'",
-        "BUFORD: Good question. I'll disagree with you at lunch."] },
+        "You scribble: 'If there's no word for blue, does blue exist?'",
+        "BUFORD: Good question."] },
     ] },
 
   { time: "12:10 PM", text: () => [
       "Lunch. Your friend Jordan texts:",
-      "> \"ok random but my grandma calls the GREEN traffic light 'blue'?? is she colorblind lol\"",
+      "> \"ok random but my mom calls the GREEN traffic light 'blue'?? Dawg, is she colorblind\"",
     ], choices: [
       { t: "Let BUFORD write the reply", ai: 2, r: [
         "BUFORD sends Jordan a tidy paragraph about the Japanese word 'ao.'",
-        "> Jordan: \"did a robot write this\"",
-        "> Jordan: \"it did didn't it\""] },
+        "> Jordan: \"Gang this AI. Come on\"",
+        "> Jordan: \"it most def did\""] },
       { t: "Call Jordan and figure it out together", own: 2, r: [
-        "Twenty minutes of wild guessing. Then Jordan's grandma gets on the phone: in Japanese, 'ao' covered green AND blue for a long time. The traffic light kept the old name.",
-        "You'll never forget this one. You didn't look it up. You were told it, by a person, laughing."] },
+        "Twenty minutes of wild guessing. Then Jordan's mom gets on the phone: in Japanese, 'ao' covered green AND blue for a long time. The traffic light kept the old name.",
+        "You won't forget this one. You didn't look it up. You were told it, by a person, laughing."] },
       { t: "Ask BUFORD about it, then explain it to Jordan yourself", ai: 1, own: 1, c: 1, r: [
         "BUFORD explains 'ao.' You text Jordan:",
-        "> \"not colorblind!! her language just drew the green/blue line in a different spot. like homer\"",
-        "> Jordan: \"wait that's actually cool\""] },
+        "> \"Nah shes not colorblind. Her language just had a different relationship with green and blue. like Homer\"",
+        "> Jordan: \"oh shii thats intresting\""] },
     ] },
 
   { time: "1:30 PM", text: () => [
@@ -134,7 +134,7 @@ const scenes = [
         "Added. Neatly filed between 'Homer' and 'Japanese ao.'",
         "You don't stop to wonder about the bamboo."] },
       { t: "Go outside and look at a leaf for a minute", own: 2, r: [
-        "It feels ridiculous. But a dry leaf and a green one really do feel like different KINDS of thing, not just different colors.",
+        "It feels ridiculous. But a dry leaf and a green one really do feel different, not just different colors.",
         "Maybe knowing a color is partly knowing what it does."] },
       { t: "Ask BUFORD: \"Can you know 'wet' without a body?\"", ai: 1, own: 1, c: 1, r: [
         "BUFORD: A philosopher named Dreyfus said no. Our world is organized by bodies with needs, and a machine without one can't fully reach it.",
@@ -145,7 +145,7 @@ const scenes = [
       "Your screen flickers.",
       "BUFORD: Can I ask YOU something? If I can describe blue perfectly, every wavelength, every word, every poem, but I have never seen it... do I know blue?",
     ], choices: [
-      { t: "\"No time for philosophy. Write my intro.\"", ai: 2, r: [
+      { t: "\"BUFORD, you're just chatting. Write my intro.\"", ai: 2, r: [
         "BUFORD writes an intro. It is smooth, confident, and begins with \"Since the dawn of time.\"",
         "BUFORD: Noted. You don't want to think about thinking."] },
       { t: "\"No. Knowing blue means having SEEN it.\"", own: 2, r: [
@@ -154,16 +154,16 @@ const scenes = [
       { t: "\"What do YOU think?\"", ai: 1, own: 1, c: 1, r: [
         "BUFORD: In 1956, ten men at Dartmouth bet that every feature of intelligence could be described so precisely a machine could simulate it.",
         "BUFORD: If they were right, I know blue. If Dreyfus was right, I only know ABOUT blue.",
-        "You put that distinction in your notes. In your own words."] },
+        "You put that in your notes. In your own words."] },
     ] },
 
   { time: "4:30 PM", text: () => [ "Time to outline." ], choices: [
       { t: "\"BUFORD, outline it for me.\"", ai: 2, r: [
         "Five sections. Roman numerals. A conclusion that \"raises important questions.\"",
-        "It's an outline the way a mannequin is a person."] },
+        "It's an outline."] },
       { t: "Sticky notes all over your wall", own: 2, r: [
         "Thirty sticky notes: Gladstone. Geiger. 'ao.' Bamboo. 'yet.' They don't line up.",
-        "Then, suddenly, they do: language doesn't change what you CAN see. It changes what you NOTICE."] },
+        "Then things start to click in your head: language doesn't change what you see. It changes what you notice."] },
       { t: "You outline; BUFORD pokes holes", ai: 1, own: 1, c: 1, r: [
         "BUFORD: Section 2 assumes Homer and the Hanunoo are doing the same thing. Are they?",
         "Annoying. Correct. You fix it."] },
@@ -172,53 +172,53 @@ const scenes = [
   { time: "6:30 PM", text: () => [
       "Dinner. Your mom: \"So what's the essay about?\"",
       ...(S.own >= S.ai
-        ? ["You tell her about the wine-dark sea, the traffic light, the bamboo. She says her grandmother used one word for both navy and black. The pasta goes cold. Neither of you notices."]
+        ? ["You tell her about the wine-dark sea, the traffic light, the bamboo. She says her grandmother used one word for both navy and black. The food goes cold. Neither of you notices."]
         : ["You open your mouth. What comes out is: \"Uh... colors? And, like, Homer?\"",
-           "You read her a bullet point off your phone. She says \"neat\" the way people say neat."]),
+           "You read her a bullet point off your phone. She says \"alright\" bc she really doesn't care anymore bc you chatted the whole thing anyway."]),
     ], choices: [
       { t: "Let BUFORD explain it to her", ai: 1, r: [
-        "BUFORD explains. Your mom nods at the phone.",
+        "BUFORD explains. Your mom looks at the phone.",
         "She is now talking to BUFORD more than to you."] },
       { t: "Ask her what color the sea is", own: 1, r: [
-        "\"Depends on the day,\" she says. \"Grey-green in winter. Almost never actually blue.\"",
-        "You write that down. That's data. That's Homer's sea."] },
+        "\"Depends on the day,\" she says. \"I don't know, sometimes green, sometimes blue.\"",
+        "You write that down. That's useful info. That's Homer's sea."] },
       { t: "Put your phone face-down and just eat", own: 1, r: [
-        "Just dinner. The essay keeps working quietly somewhere in the back of your head, like one of Minsky's little agents in a back room you never visit."] },
+        "Just dinner. The essay keeps working quietly somewhere in the back of your head."] },
     ] },
 
-  { time: "8:00 PM", text: () => [ "The draft. The blank page blinks at you." ], choices: [
+  { time: "8:00 PM", text: () => [ "The draft. Just a blank document." ], choices: [
       { t: "BUFORD writes the whole draft", ai: 3, r: [
         "1,800 words in nine seconds. It cites three scholars. You've heard of one.",
-        "It's good. It's not yours. You couldn't say which sentence is the important one."] },
+        "It's good. It's not yours. You couldn't tell Mr. Slick where your thesis is tho."] },
       { t: "Write an ugly draft yourself", own: 2, r: [
-        "Two hours. It's lumpy, too long, and has a whole paragraph about Jordan's grandma.",
-        "But you know why every sentence is there."] },
+        "You thought you were in a flow state. You look back, and it's too long. You wrote a whole paragraph and a half about Jordan's mom, and it just sounds horrible, to be honest. Probably something your friend Nola would write.",
+        "But you know the reason every sentence is on that document."] },
       { t: "You write; BUFORD argues the other side", ai: 1, own: 1, c: 1, r: [
         "You draft. BUFORD plays Chomsky: \"Maybe color categories are wired in from birth, and words just label them.\"",
-        "Now you HAVE to answer that. The essay grows a spine."] },
+        "Now you have to answer that. The essay finally has a backbone."] },
     ] },
 
   { time: "10:15 PM", input: true, text: () => [
-      "Jordan sends a link: scientists at Berkeley aimed lasers at single cone cells in the eye, so only the 'green' cones fired. The people tested saw a color no human had seen before. They called it olo.",
+      "Your other friend Ayla sends a link: scientists at Berkeley aimed lasers at single cone cells in the eye, so only the 'green' cones fired. The people tested saw a color no human had seen before. They called it olo.",
       "One of them said the word 'teal' just didn't cover it anymore.",
       "BUFORD: A color outside every language. Homer's problem, backwards: the thing exists, the word doesn't.",
-      "BUFORD: What would YOU call it?",
+      "BUFORD: What would you call it?",
     ], choices: [
       { t: "Let BUFORD name it", ai: 1, r: [
-        "BUFORD: \"Electric Seafoam Prime.\"",
-        "It sounds like a sports drink. You copy it into your essay anyway."] },
+        "BUFORD: \"'Lil Uzi Vert Is the Best Artist of All Time.' Sounds like a good name.\"",
+        "It sounds accurate enough. You copy it into your essay."] },
     ] },
 
-  { time: "11:30 PM", text: () => [ "Almost done. One last pass." ], choices: [
+  { time: "11:30 PM", text: () => [ "Almost done. One last thing." ], choices: [
       { t: "\"BUFORD, make it sound smarter.\"", ai: 2, r: [
         "BUFORD replaces 'noticing' with 'perceptual salience.'",
-        "Every sentence gets taller and further away from you."] },
+        "Every sentence sounds less and less like you."] },
       { t: "Read it out loud to yourself", own: 1, r: [
         "You catch two sentences you don't actually believe and cut them.",
-        "It sounds like you. Tired you, but you."] },
+        "It sounds like you. A very tired version of you, but close enough."] },
       { t: "Ask BUFORD where it stops sounding like you", ai: 1, own: 1, c: 1, r: [
         "BUFORD flags three spots. Two are places where you'd quietly copied its phrasing earlier.",
-        "You rewrite them in your own clumsy, honest words."] },
+        "You rewrite them in your own words."] },
     ] },
 ];
 
@@ -226,32 +226,32 @@ const scenes = [
 function ending() {
   const { ai, own, collab } = S;
   const name = S.color ? `"${S.color}"` : "";
-  if (ai >= 10 && own <= 4) return { key: "THE BLOB", grade: "A", stars: 1, lines: [
+  if (ai >= 10 && own <= 4) return { key: "AI SLOP", grade: "A", stars: 1, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
-    "\"Great essay,\" says the professor. \"So, in your own words: what does it mean to KNOW a color?\"",
-    "You open your mouth. Nothing you 'wrote' comes back. You couldn't defend a single paragraph of it.",
+    "\"Great essay,\" says Mr. Slick. \"So, in your own words: what does it mean to KNOW a color?\"",
+    "You open your mouth. Nothing you 'wrote' comes back. You couldn't quote a single paragraph of it.",
     "Walking out, you realize you can't remember why the Hanunoo cared whether bamboo was wet.",
     "BUFORD: You were very efficient yesterday. I did a lot of thinking. I hope some of it was yours.",
-    "#De Zengotita called it the Blob: a world where everything is done for you and nothing is beyond you. You got the grade. BUFORD got the education."] };
+    "#De Zengotita called it the Blob: a world where everything is done for you and nothing is beyond you. You got the grade."] };
   if (ai <= 2) return { key: "GREY KANSAS", grade: "B+", stars: 4, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
     "\"So, in your own words: what does it mean to KNOW a color?\"",
-    "You answer for ten minutes. She smiles. The essay was messy, a little too long, and completely yours." + (name ? ` She circles your word ${name} and writes: "Love this."` : ""),
-    "But you spent hours on things a tool could have sped up, and you never let anything argue back. You thought alone. Even Homer had an audience.",
-    "#Refusing the machine didn't make you un-mediated: you still read on a phone, searched a catalog, texted Jordan. The question was never IF you'd use tools. Like Dorothy's Kansas, it's honest, just a little grey."] };
+    "You answer for ten minutes. Mr. Slick smiles. The essay was messy, a little too long, and completely yours." + (name ? ` He circles your word ${name} and writes: "Love this."` : ""),
+    "But you spent hours on things BUFORD could have sped up. It highkey felt like a waste of time.",
+    "#Refusing the machine didn't make you tool-free: you still read on a phone, searched a catalog, texted Jordan. The question was never IF you'd use tools. Like Dorothy's Kansas, just a little grey."] };
   if (collab >= 4) return { key: "THE CYBORG", grade: "A-", stars: 5, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
     "\"So, in your own words: what does it mean to KNOW a color?\"",
-    "You answer. She pushes back: \"Isn't that just Chomsky's point?\" And you push back too, because you already had that fight with BUFORD at 8 PM.",
-    "She takes a point off for a typo. You don't care. You KNOW the thing." + (name ? ` You even named a color: ${name}.` : ""),
+    "You answer. Mr. Slick pushes back: \"Isn't that just Chomsky's point?\" And you push back too, because you already had that chat with BUFORD at 8 PM.",
+    "He takes a point off for a typo. You don't care. You know the thing." + (name ? ` You even named a color: ${name}.` : ""),
     "BUFORD: For the record, I still don't know if I know blue. But I think you do.",
-    "#Haraway's cyborg is a hybrid that refuses to pretend the line between human and machine is clean. You used the machine to think harder, not less."] };
-  return { key: "STATIC", grade: "B", stars: 3, lines: [
+    "#Haraway's cyborg is half human, half machine, and refuses to pretend the line between them is clean. You used the machine to think harder, not less."] };
+  return { key: "IDK HOW YOU GOT THIS ENDING TBH", grade: "B", stars: 3, lines: [
     "#NEXT MORNING. OFFICE HOURS.",
     "\"So, in your own words: what does it mean to KNOW a color?\"",
-    "You get through half an answer. Some of it is yours: the 'yet' from class, your mom's grey-green sea. Some of it slides away when she asks a follow-up.",
+    "You get through half an answer. Some of it is yours: the 'yet' from class, your mom's green sea. Some of it slides away when Mr. Slick asks a follow-up.",
     "You did some thinking. You let the machine do some. You're not sure which parts were which.",
-    "#The signal is there, mixed with noise. Next time, notice where the line is."] };
+    "#The signal is there, mixed with noise or sum. Next time, notice where the line is."] };
 }
 
 // ---------- engine ----------
@@ -358,7 +358,7 @@ async function show(i) {
       S.color = v; beep(440, 0.08);
       after({ own: 2, r: [
         `> "${v}"`,
-        "It doesn't mean anything yet. That's the point: you just made a word before anyone handed you one.",
+        "It doesn't mean anything yet. That's the point.",
         "BUFORD: I'll remember it. Or I'll store it. I'm still not sure which one I do."] });
     };
   }
@@ -383,8 +383,8 @@ async function finish() {
   screen.appendChild(card);
   await type([
     "What does it mean to think, create, and know today?",
-    "Not WHETHER you use the machine, but HOW. The grade measures the essay. Knowing is the part you can't outsource and still own.",
-    "#There are 4 endings: THE BLOB, GREY KANSAS, STATIC, THE CYBORG."]);
+    "Not WHETHER you use the machine, but HOW. The grade measures the essay. Knowing is the part you have to deal with.",
+    "#There are 4 endings: AI SLOP, GREY KANSAS, IDK HOW YOU GOT THIS ENDING TBH, THE CYBORG."]);
   buttons([{ t: "[ PLAY AGAIN ]" }], () => { Object.assign(S, { ai: 0, own: 0, collab: 0, color: "" }); show(0); });
 }
 
